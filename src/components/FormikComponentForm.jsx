@@ -1,4 +1,4 @@
-import { Formik,Form ,Field, ErrorMessage, FastField} from 'formik'
+import { Formik,Form ,Field, ErrorMessage, FastField, FieldArray} from 'formik'
 import React from 'react'
 import * as Yup from 'yup'
 function FormikComponentForm() {
@@ -10,7 +10,9 @@ function FormikComponentForm() {
         socialMedia:{
            
         },
-        phone:["",""]
+        phone:["",""],
+        phoneNumbers:[""],
+
     }
     const validationSchema=Yup.object({
         name:Yup.string().required("Required"),
@@ -92,6 +94,37 @@ function FormikComponentForm() {
                     <div className="form-group">
                         <label htmlFor="">Phone 2</label>
                         <Field name="phone[1]" type="text" className="form-control"></Field>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="">Phone Numbers One</label>
+                        <FieldArray name="phoneNumbers">
+                            {
+                                props=>{
+                                   const {form,push,remove}=props;
+                                    const {values}=form;
+                                    const {phoneNumbers}=values;
+                                    return(
+                                        <div>
+                                            {
+                                                phoneNumbers.map((phoneNumber,index) =>{
+                                                    return(
+                                                        <div key={index}>
+                                                            <Field name={`phoneNumbers[${index}]`}></Field>
+                                                            {
+                                                                index>0 &&
+                                                                <button onClick={()=>remove(index)}>-</button>
+                                                            }
+                                                            
+                                                            <button onClick={()=>push("")}>+</button>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    )
+                                }
+                            }
+                        </FieldArray>
                     </div>
                     <input type="submit" className="btn btn-success btn-block"/>
                 </Form>
