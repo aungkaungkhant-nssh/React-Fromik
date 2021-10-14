@@ -1,10 +1,11 @@
 
 import './App.css';
+import SimpleForm from './components/SimpleForm';
 
 function App() {
   return (
     <div className="App">
-        <h1>Let's go</h1>      
+          <SimpleForm />
     </div>
   );
 }
