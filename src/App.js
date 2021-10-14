@@ -1,11 +1,10 @@
 
 import './App.css';
-import SimpleForm from './components/SimpleForm';
-
+import FormikComponentForm from './components/FormikComponentForm';
 function App() {
   return (
     <div className="App">
-          <SimpleForm />
+         <FormikComponentForm />
     </div>
   );
 }
