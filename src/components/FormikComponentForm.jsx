@@ -33,7 +33,11 @@ const loadsaveData={
     phone:["",""],
     phoneNumbers:[""]
 }
-const onSubmit=values=>console.log(values)
+const onSubmit=(values,onSubmitProps)=>{
+    console.log(values)
+    onSubmitProps.setSubmitting(false);// reset form
+    onSubmitProps.resetForm() //rest form
+}
 function FormikComponentForm() {
     
     const [saveFormValues,setSaveFormValues]=useState(null);
@@ -65,12 +69,24 @@ function FormikComponentForm() {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="">Email</label>
-                                <Field name="email" type="email" className="form-control"></Field>
-                                <ErrorMessage name="email">
+                                <Field name="email" className="form-control">
                                     {
-                                        errorMessage=><div className="text-danger">{errorMessage}</div>
+                                        ({field,meta})=>{
+                                            return(
+                                                <div>
+                                                    <input type="email" {...field} className="form-control"/>
+                                                    {
+                                                        meta.touched && meta.error ?
+                                                        <div className="text-danger">
+                                                            {meta.error}
+                                                        </div>:null
+                                                    }
+                                                </div>
+                                            )
+                                        }
                                     }
-                                </ErrorMessage>
+                                </Field>
+                              
                             </div>
                             <div className="form-group">
                                  <label htmlFor="">Comments</label>
@@ -149,7 +165,8 @@ function FormikComponentForm() {
                                     }
                                 </FieldArray>
                             </div>
-                            <button onClick={()=>setSaveFormValues(loadsaveData)}className="btn btn-warning mb-2">Load Save Data</button>
+                            <button type="rest" className="btn btn-block btn-primary mb-2">Reset</button>
+                            <button onClick={()=>setSaveFormValues(loadsaveData)}className="btn btn-warning mb-2 btn-block ">Load Save Data</button>
                             <input type="submit" className="btn btn-success btn-block" disabled={!formik.isValid && !formik.isSubmitting}/>
                           
                         </Form>

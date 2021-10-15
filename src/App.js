@@ -1,10 +1,10 @@
 
 import './App.css';
-import FormikComponentForm from './components/FormikComponentForm';
+import FormikAdvanced from './components/FormikAdvanced'
 function App() {
   return (
     <div className="App">
-         <FormikComponentForm />
+        <FormikAdvanced />
     </div>
   );
 }
